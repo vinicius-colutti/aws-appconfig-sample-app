@@ -6,6 +6,8 @@ import com.colutti.aws_appconfig_sample.dtos.request.AppConfigEnvironmentRequest
 import com.colutti.aws_appconfig_sample.dtos.request.AppConfigHostedConfigurationVersionRequestDTO;
 import com.colutti.aws_appconfig_sample.dtos.response.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -14,9 +16,9 @@ import java.util.List;
  */
 public interface AppConfigControlPlaneService {
 
-    AppConfigApplicationResponseDTO createApplication(AppConfigApplicationRequestDTO appRequestDto);
-    AppConfigEnvironmentResponseDTO createEnvironment(AppConfigEnvironmentRequestDTO environmentRequestDTO);
-    AppConfigConfigurationProfileResponseDTO createConfigurationProfile(AppConfigConfigurationProfileRequestDTO configProfileRequestDto);
-    AppConfigHostedConfigurationVersionResponseDTO createHostedConfigurationVersion(AppConfigHostedConfigurationVersionRequestDTO hostedConfigRequestDto) throws JsonProcessingException;
-    List<AppConfigListConfigurationProfileResponseDTO> listConfigurationProfiles(String applicationId);
+    AppConfigApplicationResponseDTO createApplication(AppConfigApplicationRequestDTO appRequestDto) throws URISyntaxException;
+    AppConfigEnvironmentResponseDTO createEnvironment(AppConfigEnvironmentRequestDTO environmentRequestDTO) throws URISyntaxException;
+    AppConfigConfigurationProfileResponseDTO createConfigurationProfile(AppConfigConfigurationProfileRequestDTO configProfileRequestDto) throws URISyntaxException;
+    AppConfigHostedConfigurationVersionResponseDTO createHostedConfigurationVersion(AppConfigHostedConfigurationVersionRequestDTO hostedConfigRequestDto) throws JsonProcessingException, URISyntaxException;
+    List<AppConfigListConfigurationProfileResponseDTO> listConfigurationProfiles(String applicationId) throws URISyntaxException;
 }

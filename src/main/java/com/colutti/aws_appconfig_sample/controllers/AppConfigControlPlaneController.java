@@ -8,6 +8,8 @@ import com.colutti.aws_appconfig_sample.dtos.response.*;
 import com.colutti.aws_appconfig_sample.services.AppConfigControlPlaneService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -22,20 +24,20 @@ public class AppConfigControlPlaneController {
 
     @PostMapping("/applications")
     public AppConfigApplicationResponseDTO createApplication(
-            @RequestBody AppConfigApplicationRequestDTO appRequestDto){
+            @RequestBody AppConfigApplicationRequestDTO appRequestDto) throws URISyntaxException {
         return this.appConfigControlPlaneService.createApplication(appRequestDto);
     }
 
     @GetMapping("/applications/{applicationId}")
     public List<AppConfigListConfigurationProfileResponseDTO> listConfigurationProfiles(
-            @PathVariable(name = "applicationId") String applicationId){
+            @PathVariable(name = "applicationId") String applicationId) throws URISyntaxException {
         return this.appConfigControlPlaneService.listConfigurationProfiles(applicationId);
     }
 
     @PostMapping("/applications/{appId}/environments")
     public AppConfigEnvironmentResponseDTO createEnvironment(
             @PathVariable(name = "appId") String applicationId,
-            @RequestBody AppConfigEnvironmentRequestDTO environmentRequestDto){
+            @RequestBody AppConfigEnvironmentRequestDTO environmentRequestDto) throws URISyntaxException {
         environmentRequestDto.setApplicationId(applicationId);
         return this.appConfigControlPlaneService.createEnvironment(environmentRequestDto);
     }
@@ -43,7 +45,7 @@ public class AppConfigControlPlaneController {
     @PostMapping("/applications/{appId}/configurations-profiles")
     public AppConfigConfigurationProfileResponseDTO createConfigurationProfile(
             @PathVariable(name = "appId") String applicationId,
-            @RequestBody AppConfigConfigurationProfileRequestDTO configProfileRequestDto){
+            @RequestBody AppConfigConfigurationProfileRequestDTO configProfileRequestDto) throws URISyntaxException {
         configProfileRequestDto.setApplicationId(applicationId);
         return this.appConfigControlPlaneService.createConfigurationProfile(configProfileRequestDto);
     }
@@ -52,7 +54,7 @@ public class AppConfigControlPlaneController {
     public AppConfigHostedConfigurationVersionResponseDTO createHostedConfigurationVersion(
             @PathVariable(name = "appId") String applicationId,
             @PathVariable(name = "configurationProfileId") String configurationProfileId,
-            @RequestBody AppConfigHostedConfigurationVersionRequestDTO hostedConfigRequestDto) throws JsonProcessingException {
+            @RequestBody AppConfigHostedConfigurationVersionRequestDTO hostedConfigRequestDto) throws JsonProcessingException, URISyntaxException {
         hostedConfigRequestDto.setApplicationId(applicationId);
         hostedConfigRequestDto.setConfigurationProfileId(configurationProfileId);
         return this.appConfigControlPlaneService.createHostedConfigurationVersion(hostedConfigRequestDto);
